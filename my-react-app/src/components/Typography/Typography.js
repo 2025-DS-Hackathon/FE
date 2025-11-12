@@ -31,19 +31,19 @@ export const Body2 = ({ children, className, ...props }) => (
   </p>
 );
 
-export const Button = ({ children, className, ...props }) => (
+export const ButtonText = ({ children, className, ...props }) => (
   <span className={`${styles.buttonText} ${className || ''}`} {...props}>
     {children}
   </span>
 );
 
-export const Tab = ({ children, className, ...props }) => (
+export const TabText = ({ children, className, ...props }) => (
   <span className={`${styles.tabText} ${className || ''}`} {...props}>
     {children}
   </span>
 );
 
-export const Caption = ({ children, className, ...props }) => (
+export const CaptionText = ({ children, className, ...props }) => (
   <span className={`${styles.caption1} ${className || ''}`} {...props}>
     {children}
   </span>

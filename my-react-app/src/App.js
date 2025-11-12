@@ -1,8 +1,13 @@
 import './App.css';
-import { Headline1, Headline2, Headline3, Body1, Body2, Button, Tab, Caption } from './components/Typography/Typography';
+import { Headline1, Headline2, Headline3, Body1, Body2, ButtonText, TabText, CaptionText } from './components/Typography/Typography';
+import Button from './components/Button/Button';
 
 function App() {
+  const handleClick = () => {
+    console.log('매칭 신청 완료!');
+  };
   return (
+    
     <div style={{ padding: '20px' }}> 
       <h1>텍스트 스타일 가이드</h1>
       <p>SUIT / 행간 140% / 자간 -2.5%</p>
@@ -20,19 +25,37 @@ function App() {
       <br />
 
       <button style={{ padding: '10px 15px', backgroundColor: '#eee', border: 'none', borderRadius: '5px' }}>
-        <Button>Button (Medium / 14)</Button>
+        <ButtonText>Button (Medium / 14)</ButtonText>
       </button>
 
       <br /><br />
 
       <div>
-        <Tab>Tab (SemiBold / 13) - 탭 메뉴 텍스트</Tab>
+        <TabText>Tab (SemiBold / 13) - 탭 메뉴 텍스트</TabText>
       </div>
 
       <br />
 
-      <Caption>Caption (Medium / 12) - 작은 설명 텍스트입니다.</Caption>
+      <CaptionText>Caption (Medium / 12) - 작은 설명 텍스트입니다.</CaptionText>
+
+
+
+      <br /><br />
+
+      <hr style={{ margin: '30px 0', borderStyle: 'dashed', borderColor: 'var(--color-gray-3)' }} />
+
+      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+        <h2 style={{ color: 'var(--color-text-1)' }}>실제 버튼 컴포넌트 테스트</h2>
+
+        {/* 활성 (Primary) 버튼 */}
+        <Button onClick={handleClick}>재능 공유 매칭 신청</Button>
+
+        {/* 비활성 (Disabled) 버튼 */}
+        <Button onClick={handleClick} disabled>재능 공유 매칭 신청 (비활성화)</Button>
+      </div>
+      
     </div>
+    
   );
 }
 

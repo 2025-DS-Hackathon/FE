@@ -41,21 +41,21 @@
 }
 
 /* Button Text */
-.button {
+.buttonText {
   composes: textBase;
   font-size: var(--button-font-size);
   font-weight: var(--button-font-weight);
 }
 
 /* Tab Text */
-.tab {
+.tabText {
   composes: textBase;
   font-size: var(--tab-font-size);
   font-weight: var(--tab-font-weight);
 }
 
 /* Caption 1 */
-.caption {
+.captionText {
   composes: textBase;
   font-size: var(--caption1-font-size);
   font-weight: var(--caption1-font-weight);
