@@ -1,0 +1,59 @@
+/* SemiBold */
+@font-face {
+  font-family: 'SUIT';
+  src: url('../assets/fonts/SUIT-SemiBold.woff2') format('woff2');
+  font-weight: 600; 
+  font-style: normal;
+}
+/* Medium */
+@font-face {
+  font-family: 'SUIT';
+  src: url('../assets/fonts/SUIT-Medium.woff2') format('woff2');
+  font-weight: 500; 
+  font-style: normal;
+}
+/* Regular */
+@font-face {
+  font-family: 'SUIT';
+  src: url('../assets/fonts/SUIT-Regular.woff2') format('woff2');
+  font-weight: 400; 
+  font-style: normal;
+}
+
+:root {
+  --font-family-suit: 'SUIT', sans-serif;
+  --text-line-height: 140%; 
+  --text-letter-spacing: -0.025em;
+
+  /* Headline 1 (H2 / SemiBold / 24) */
+  --headline1-font-size: 24px;
+  --headline1-font-weight: 600; 
+
+  /* Headline 2 (H3 / SemiBold / 20) */
+  --headline2-font-size: 20px;
+  --headline2-font-weight: 600;
+
+  /* Headline 3 (H4 / SemiBold / 18) */
+  --headline3-font-size: 18px;
+  --headline3-font-weight: 600; 
+
+  /* Body 1 (Body 1 / Regular / 16) */
+  --body1-font-size: 16px;
+  --body1-font-weight: 400; 
+
+  /* Body 2 (Body 2 / Medium / 14) */
+  --body2-font-size: 14px;
+  --body2-font-weight: 500; 
+
+  /* Button (Button / Medium / 14) */
+  --button-font-size: 14px;
+  --button-font-weight: 500;
+
+  /* Tab (Tab / SemiBold / 13) */
+  --tab-font-size: 13px;
+  --tab-font-weight: 600; 
+
+  /* Caption (Caption 1 / Medium / 12) */
+  --caption-font-size: 12px;
+  --caption-font-weight: 500; 
+}
