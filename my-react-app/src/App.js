@@ -1,6 +1,7 @@
 import './App.css';
 import { Headline1, Headline2, Headline3, Body1, Body2, ButtonText, TabText, CaptionText } from './components/Typography/Typography';
 import Button from './components/Button/Button';
+import { Desktop, Tablet, Mobile } from "./components/ScreemSize";
 
 function App() {
   const handleClick = () => {
@@ -53,6 +54,12 @@ function App() {
         {/* 비활성 (Disabled) 버튼 */}
         <Button onClick={handleClick} disabled>재능 공유 매칭 신청 (비활성화)</Button>
       </div>
+
+      <>
+        <Desktop>데스크탑 전용 페이지</Desktop>
+        <Tablet>노트북 & 태블릿 전용 페이지</Tablet>
+        <Mobile>모바일 전용 페이지</Mobile>
+      </>
       
     </div>
     
