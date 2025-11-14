@@ -2,10 +2,13 @@ import './App.css';
 import { Headline1, Headline2, Headline3, Body1, Body2, ButtonText, TabText, CaptionText } from './components/Typography/Typography';
 import Button from './components/Button/Button';
 import { Desktop, Tablet, Mobile } from "./components/ScreemSize";
+import { useNavigate } from 'react-router-dom';
 
 function App() {
-  const handleClick = () => {
-    console.log('매칭 신청 완료!');
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('./pages/Talent.js');
   };
   return (
     
@@ -61,7 +64,10 @@ function App() {
         <Mobile>모바일 전용 페이지</Mobile>
       </>
       
+      
     </div>
+
+    
     
   );
 }
