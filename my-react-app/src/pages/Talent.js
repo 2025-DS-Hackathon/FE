@@ -1,14 +1,22 @@
 import React from "react";
 import "../styles/Talent.css";
 import Button from '../components/Button/Button'; 
+import '../styles/fonts.css';
+import '../styles/colors.css';
+import Back from '../components/Back';
 
 export default function TalentRegister() {
-    const handleMatchingRequest = () => {};
+  const handleMatchingRequest = () => {};
+  const handleBack = () => {
+    console.log("뒤로 가기 버튼 클릭됨");
+  };
   return (
     <div className="page-wrapper">
-      <h2 className="page-title">재능 등록하기</h2>
+      <Back 
+        title="재능 등록하기" 
+        onBack={handleBack} 
+      />
 
-      {/* 현재 영역 */}
       <div className="section">
         <p className="section-label">현재 영역</p>
         <div className="gray-box">내가 배울 줄 수 있는 것</div>
