@@ -1,0 +1,54 @@
+.header {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  background: #FFFFFF;
+  border-radius: 0px 0px 0px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  box-sizing: border-box;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+.title {
+  font-family: 'SUIT';
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 140%;
+  letter-spacing: -0.025em;
+  color: #212529;
+}
+
+.alert {
+  font-size: 24px;
+  color: #FFA04D;
+  position: relative;
+}
+
+.alert::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 0;
+  right: -3px;
+  background: red;
+  border-radius: 50%;
+}
+
+.dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background: #D9414E;
+  border-radius: 50%;
+}

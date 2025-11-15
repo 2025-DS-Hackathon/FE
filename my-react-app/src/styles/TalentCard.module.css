@@ -1,0 +1,44 @@
+/* src/styles/TalentCard.module.css */
+
+.cardWrapper {
+  width: 100%;
+  margin-bottom: 1px; /* 박스 사이 간격 */
+}
+
+/* 상단 헤더 */
+.header {
+  padding: 14px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px 12px 0 0;
+  color: white;
+}
+
+/* 색상 */
+.blue { background: #358de2; }
+.orange { background: #ffa04d; }
+
+/* 흰 박스 부분 */
+.cardBox {
+  background: white;
+  padding: 22px 0;
+  border: 1.5px solid;
+  border-radius: 0 0 12px 12px;
+  text-align: center;
+}
+
+.blueBorder { border-color: #358de2; }
+.orangeBorder { border-color: #ffa04d; }
+
+.plus {
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+
+.placeholder {
+  font-size: 15px;
+}
+
+.blueText { color: #358de2; }
+.orangeText { color: #ffa04d; }
