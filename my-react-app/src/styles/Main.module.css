@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  max-width: 390px; /* 모바일 기준 */
+  margin: 0 auto;
+  padding: 0;
+  background: #F8F9FA;
+  min-height: 100vh;
+}
+
+.main {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* .stats {
+  text-align: center;
+} */
+
+
+/* --- 카드 두 개 묶어서 간격 만들기 --- */
+.cardGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;  /* ★★★ 여기 때문에 파란/주황 박스 사이 공간 생김 */
+  margin-top: 10px;
+}
+
+/* 버튼 전체 Wrapper */
+.buttonWrapper {
+  margin-top: 24px;
+  width: 100%;
+}
+
+/* 통계 문구 */
+.exchangeStats {  
+  margin-top: 16px;
+  text-align: center !important;
+  color: #6C757D;
+  font-weight: 600;
+  font-size: 13px;
+}
