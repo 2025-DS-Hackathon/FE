@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Main from "./pages/Main.js";
 import ExtraInfo from "./pages/ExtraInfo.jsx";
+import MypageGuest from "./pages/MypageGuest";
+import MypageUser from "./pages/MypageUser";
 
 function App() {
   return (
@@ -21,7 +23,11 @@ function App() {
         <Route path="/extra" element={<ExtraInfo />} />
         {/* 메인 페이지 */}
         <Route path="/main" element={<Main />} />
+        <Route path="/mypage" element={<MypageGuest />} />
+        <Route path="/mypage-user" element={<MypageUser />} />
+
       </Routes>
+
     </Router>
   );
 }

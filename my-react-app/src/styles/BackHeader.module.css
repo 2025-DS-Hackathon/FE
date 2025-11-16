@@ -1,0 +1,25 @@
+.headerBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  background: #ffffff;
+  position: relative;
+}
+
+/* 뒤로가기 버튼 */
+.backBtn {
+  position: absolute;
+  left: 16px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+}
+
+/* 가운데 제목 */
+.headerTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
