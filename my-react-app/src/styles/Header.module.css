@@ -52,3 +52,15 @@
   background: #D9414E;
   border-radius: 50%;
 }
+
+
+.iconImg {
+  background: #FFFFFF;
+  display: flex;
+  width: 24px;
+  height: 24px;  
+  padding: 3px 4px 2px 4px;
+  justify-content: center;
+  align-items: center;
+}
+
