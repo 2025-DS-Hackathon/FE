@@ -8,6 +8,7 @@ import MypageGuest from "./pages/MypageGuest";
 import MypageUser from "./pages/MypageUser";
 import MessageList from "./pages/MessageList.js";
 import ChatPage from "./pages/ChatPage.jsx";
+import TalentExchange from "./pages/TalentExchange.jsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/target" element={<TargetPage />} />
         <Route path="/Message" element={<MessageList />} />
         <Route path="/Message/:chatId" element={<ChatPage />} />
+        <Route path="/exchange" element={<TalentExchange />} />
       </Routes>
 
     </Router>
