@@ -7,9 +7,16 @@
 }
 
 .itemTitle {
-  font-size: 14px;
-  color: #757575;
-  margin-bottom: 8px;
+  overflow: hidden;
+  color: var(--Color-Gray-3, #6C757D);
+  font-feature-settings: 'liga' off, 'clig' off;
+  padding-bottom: 6px;
+  font-family: SUIT;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: -0.325px;
 }
 
 .contentWrapper {
@@ -44,6 +51,38 @@
   height: 24px;
   transform: rotate(-90deg);
   object-fit: contain;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.dropdownIcon.isExpanded {
+  transform: rotate(0deg); 
+}
+.detailContent {
+  margin-top: 12px;
+  padding-top: 12px;
+  
+  color: var(--Color-Gray-4, #212529);
+  font-feature-settings: 'liga' off, 'clig' off;
+
+  font-family: SUIT;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; 
+  letter-spacing: -0.35px;
+}
+
+.tagsWrapper{
+  color: var(--Color-Gray-3, #6C757D);
+  font-feature-settings: 'liga' off, 'clig' off;
+  padding-top: 10px;
+  font-family: SUIT;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 16.8px */
+  letter-spacing: -0.3px;
 }
 
 .itemContainer.isPartner {
@@ -51,9 +90,15 @@
 }
 
 .categoryTag.isPartner {
-  background-color: #fff3e0;
-  color: #ff9800;
-  border-color: #ffb74d;
+  color: var(--Color-Accent-Senior, #FFA04D);
+  font-feature-settings: 'liga' off, 'clig' off;
+
+  font-family: SUIT;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 16.8px */
+  letter-spacing: -0.3px;
 }
 
 .itemContainer.isMine {
@@ -61,7 +106,13 @@
 }
 
 .categoryTag.isMine {
-  background-color: #e3f2fd;
-  color: #42a5f5;
-  border-color: #64b5f6;
+  color: var(--Color-Accent-Youth, #358DE2);
+  font-feature-settings: 'liga' off, 'clig' off;
+
+  font-family: SUIT;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 16.8px */
+  letter-spacing: -0.3px;
 }
