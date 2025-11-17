@@ -12,9 +12,9 @@ const exchangeItems = [
     category: "요리/생활 (부동산)",
     exchangeContent: "전월세 계약서 체크하는 법",
     detailContent:
-      "혼자 계약서에 도장 찍기 무서우시죠? 이것만큼은 꼭 확인해야 할 다섯 가지를 짚어 드려요.", // 태그 제거
+      "혼자 계약서에 도장 찍기 무서우시죠? 이것만큼은 꼭 확인해야 할 다섯 가지를 짚어 드려요.",
     isPartner: true,
-    tags: ["계약서확인", "전월세", "부동산"], // ✨ 새로 분리된 필드
+    tags: ["계약서확인", "전월세", "부동산"], 
   },
   {
     id: 2,
@@ -22,9 +22,9 @@ const exchangeItems = [
     category: "IT/기술 (프론트엔드)",
     exchangeContent: "React Hooks 실전 활용 가이드",
     detailContent:
-      "useEffect, useContext 등 주요 훅의 실무 적용 사례와 성능 최적화 팁을 공유합니다.", // 태그 제거
+      "useEffect, useContext 등 주요 훅의 실무 적용 사례와 성능 최적화 팁을 공유합니다.", 
     isPartner: false,
-    tags: ["프론트엔드", "리액트", "개발"], // ✨ 새로 분리된 필드
+    tags: ["프론트엔드", "리액트", "개발"], 
   },
   {
     id: 3,
@@ -32,9 +32,9 @@ const exchangeItems = [
     category: "운동/건강 (홈트)",
     exchangeContent: "초보자용 30분 전신 홈트 루틴",
     detailContent:
-      "집에서도 쉽게 따라 할 수 있는 부위별 운동 자세와 주의사항을 알려드립니다. 별도의 기구는 필요 없어요!", // 태그 제거
+      "집에서도 쉽게 따라 할 수 있는 부위별 운동 자세와 주의사항을 알려드립니다. 별도의 기구는 필요 없어요!", 
     isPartner: true,
-    tags: ["홈트레이닝", "운동루틴", "건강"], // ✨ 새로 분리된 필드
+    tags: ["홈트레이닝", "운동루틴", "건강"], 
   },
   {
     id: 4,
@@ -42,9 +42,9 @@ const exchangeItems = [
     category: "예술/디자인 (디지털 드로잉)",
     exchangeContent: "아이패드 드로잉 기초 테크닉",
     detailContent:
-      "프로크리에이트 앱을 활용한 레이어, 브러쉬, 색상 팔레트 사용법 등 그림 그리기 시작을 도와드립니다.", // 태그 제거
+      "프로크리에이트 앱을 활용한 레이어, 브러쉬, 색상 팔레트 사용법 등 그림 그리기 시작을 도와드립니다.", 
     isPartner: false,
-    tags: ["디지털드로잉", "아이패드", "취미"], // ✨ 새로 분리된 필드
+    tags: ["디지털드로잉", "아이패드", "취미"], 
   },
   {
     id: 5,
@@ -52,9 +52,9 @@ const exchangeItems = [
     category: "언어/외국어 (스페인어)",
     exchangeContent: "여행에서 유용한 스페인어 회화",
     detailContent:
-      "공항, 식당, 숙소에서 써먹을 수 있는 필수 스페인어 표현 20가지를 원어민 발음으로 가르쳐 드립니다.", // 태그 제거
+      "공항, 식당, 숙소에서 써먹을 수 있는 필수 스페인어 표현 20가지를 원어민 발음으로 가르쳐 드립니다.",
     isPartner: true,
-    tags: ["스페인어", "외국어", "여행"], // ✨ 새로 분리된 필드
+    tags: ["스페인어", "외국어", "여행"], 
   },
   {
     id: 6,
@@ -62,9 +62,9 @@ const exchangeItems = [
     category: "재테크/금융 (세금/정산)",
     exchangeContent: "직장인을 위한 연말정산 A to Z",
     detailContent:
-      "놓치기 쉬운 세액 공제 항목과 환급액을 늘리는 팁을 쉽게 설명해 드립니다. 13월의 월급 만들기!", // 태그 제거
+      "놓치기 쉬운 세액 공제 항목과 환급액을 늘리는 팁을 쉽게 설명해 드립니다. 13월의 월급 만들기!",
     isPartner: false,
-    tags: ["연말정산", "세금", "재테크"], // ✨ 새로 분리된 필드
+    tags: ["연말정산", "세금", "재테크"], 
   },
   {
     id: 7,
@@ -72,9 +72,9 @@ const exchangeItems = [
     category: "사진/영상 (스마트폰 사진)",
     exchangeContent: "스마트폰으로 인물 사진 잘 찍는 법",
     detailContent:
-      "구도, 조명, 보정 앱 활용법을 통해 인스타 감성의 인생샷을 찍는 노하우를 알려드립니다.", // 태그 제거
+      "구도, 조명, 보정 앱 활용법을 통해 인스타 감성의 인생샷을 찍는 노하우를 알려드립니다.", 
     isPartner: true,
-    tags: ["인물사진", "스마트폰촬영", "사진"], // ✨ 새로 분리된 필드
+    tags: ["인물사진", "스마트폰촬영", "사진"], 
   },
 ];
 
@@ -120,7 +120,6 @@ const TalentExchange = () => {
         ))}
       </div>
 
-
       <div className="exchangeWrapper">
         <img 
           src={exchage} 
@@ -141,9 +140,8 @@ const TalentExchange = () => {
             tags={item.tags}
           />
         ))}
-
       </div>
-
+      
       <p className="matchingInfo">
         매칭이 성립된 이유: [카테고리가]가 일치합니다.
         <br />
