@@ -6,6 +6,8 @@ import Main from "./pages/Main.js";
 import ExtraInfo from "./pages/ExtraInfo.jsx";
 import MypageGuest from "./pages/MypageGuest";
 import MypageUser from "./pages/MypageUser";
+import MessageList from "./pages/MessageList.js";
+import ChatPage from "./pages/ChatPage.jsx";
 
 function App() {
   return (
@@ -14,16 +16,12 @@ function App() {
 
         <Route path="/login" element={<Login />} /> 
         <Route path="/extra" element={<ExtraInfo />} />
-<<<<<<< HEAD
-        {/* 메인 페이지 */}
         <Route path="/main" element={<Main />} />
         <Route path="/mypage" element={<MypageGuest />} />
         <Route path="/mypage-user" element={<MypageUser />} />
-
-=======
-        <Route path="/main" element={<Main />} /> 
         <Route path="/target" element={<TargetPage />} />
->>>>>>> main
+        <Route path="/Message" element={<MessageList />} />
+        <Route path="/Message/:chatId" element={<ChatPage />} />
       </Routes>
 
     </Router>
