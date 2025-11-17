@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Chat.css'; // 이 파일에 ChatHeader와 Modal 스타일 모두 추가할 예정
+import '../styles/Chat.css'; 
 import { useNavigate } from 'react-router-dom';
 import BackArrowIcon from '../assets/icon/left.png'; 
 
@@ -9,7 +9,7 @@ const ChatHeader = ({ interlocutorName, infoText, onBlockUser }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); 
     const [isReportModalVisible, setIsReportModalVisible] = useState(false);
 
-    const categorySeparator = ' '; // 예시로 공백을 구분자로 사용하거나, 상위 컴포넌트에서 전달하는 형식에 따라 변경
+    const categorySeparator = ' ';
     const categories = infoText ? infoText.split(categorySeparator) : [];
     const interlocutorCategory = categories[0] || '';
     const myCategory = categories[1] || '';
@@ -29,7 +29,7 @@ const ChatHeader = ({ interlocutorName, infoText, onBlockUser }) => {
         setIsReportModalVisible(true); 
     };
 
-    // '차단하기' 
+    // 차단하기
     const handleBlock = () => {
         setIsMenuOpen(false); 
         if (onBlockUser) {
@@ -44,7 +44,7 @@ const ChatHeader = ({ interlocutorName, infoText, onBlockUser }) => {
     // 신고 사유 선택
     const handleReasonClick = (reason) => {
         alert(`신고 사유: "${reason}"이(가) 선택되었습니다. 신고를 접수합니다.`);
-        handleModalClose(); // 모달 닫기
+        handleModalClose(); 
     };
 
     // 신고 사유 목록
@@ -54,14 +54,12 @@ const ChatHeader = ({ interlocutorName, infoText, onBlockUser }) => {
         "기타 사유"
     ];
 
-    // (5) 신고 모달 렌더링 함수 (컴포넌트 내부에 정의)
+
     const renderReportModal = () => {
         if (!isReportModalVisible) return null;
 
         return (
-            // 모달 배경 (오버레이)
             <div className="modal-overlay" onClick={handleModalClose}> 
-                {/* 모달 내용. 배경 클릭 시 닫히는 것을 방지 */}
                 <div className="report-modal" onClick={(e) => e.stopPropagation()}>
                     <div className="modal-header">
                         <p className="modal-title">신고 사유를 선택해주세요</p>
@@ -124,8 +122,6 @@ const ChatHeader = ({ interlocutorName, infoText, onBlockUser }) => {
                     )}
                 </div>
             </div>
-
-            {/* (6) 모달 렌더링 함수 호출 */}
             {renderReportModal()}
         </>
     );
