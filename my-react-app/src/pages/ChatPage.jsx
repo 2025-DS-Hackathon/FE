@@ -11,9 +11,9 @@ const myName = "사용자 닉네임";
 const mockChatData = [
   {
     id: 1,
-    interlocutorName: "이름없음", // 상대방 이름
-    infoText: "디지털/IT 요리/생활", // 상대 카테고리 내 카테고리
-    messages: [ // 👈 추가된 메시지 데이터
+    interlocutorName: "이름없음", 
+    infoText: "디지털/IT 요리/생활", 
+    messages: [ 
         { id: 1, text: "안녕하세요, 부동산 서류 때문에 요청 드렸는데, 교환에 동의해 주셔서 정말 감사해요!", time: "14:45", isMine: true, sender: myName },
         { id: 2, text: "네 저도 감사드려요! 저는 잠실 쪽에 사는데 혹시 거주지가 어디신가요? 직접 만나서 배워야 좋을 것 같아요.", time: "14:45", isMine: false, sender: "이름없음" },
         { id: 3, text: "저는 서울 강동구 쪽이에요! 다행히 거리가 가까워서 직접 만나는 것에 저도 찬성입니다", time: "14:45", isMine: true, sender: myName },
@@ -26,7 +26,6 @@ const mockChatData = [
     interlocutorName: "김민지",
     infoText: "여행/레저 독서/문화",
     messages: [
-      // ... id 2번 채팅방의 메시지 데이터
     ]
   },
 ];
@@ -96,7 +95,6 @@ const ChatPage = () => {
         <div ref={messagesEndRef} /> 
       </div>
 
-      {/* 👈 차단 경고 메시지 */}
       {isBlocked && (
           <div className="block-warning-message">
               <img src={info} alt="경고 아이콘" className="warning-icon-img" /> 차단된 사용자입니다. 쪽지를 보낼 수 없습니다.

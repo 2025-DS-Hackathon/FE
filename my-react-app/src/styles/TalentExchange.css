@@ -1,0 +1,8 @@
+.pageContainer {
+  display: flex;
+
+}
+
+.title {
+  text-align: center; /* 이미 중앙 정렬이 적용되어 있습니다. */
+}
