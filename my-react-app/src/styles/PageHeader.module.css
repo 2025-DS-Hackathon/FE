@@ -1,0 +1,26 @@
+.header {
+  width: 100%;
+  max-width: 390px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+  margin: 0 auto;
+}
+
+.backBtn {
+  position: absolute;
+  left: 16px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+}
