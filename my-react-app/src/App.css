@@ -1,11 +1,11 @@
+/* 
 
-/* 모바일 */
 .container {
   padding: 16px;
   font-size: 14px;
 }
 
-/* 태블릿 */
+
 @media (min-width: 768px) {
   .container {
     font-size: 16px;
@@ -13,7 +13,7 @@
   }
 }
 
-/* 데스크탑 */
+
 @media (min-width: 1024px) {
   .container {
     font-size: 18px;
@@ -52,4 +52,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

@@ -12,9 +12,6 @@ function App() {
   return (
     <>
       <Routes>
-<<<<<<< Updated upstream
-        <Route path="/target" element={<TargetPage />} />
-=======
 
         {/* 메인 페이지 */}
         <Route path="/main" element={<Main />} />
@@ -34,7 +31,6 @@ function App() {
         <Route path="/Message" element={<MessageList />} />
         <Route path="/Message/:chatId" element={<ChatPage />} />
         <Route path="/exchange" element={<TalentExchange />} />
->>>>>>> Stashed changes
       </Routes>
       
       <button onClick={handleClick}>
