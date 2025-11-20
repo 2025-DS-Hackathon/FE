@@ -161,7 +161,7 @@ export default function TalentRegister() {
   const { type } = location.state || {};
   const title =
   type === "teach"
-    ? "배움을 줄 수 있는 것"
+    ? "가르쳐줄 수 있는 것"
     : type === "learn"
     ? "배움을 받고 싶은것"
     : "재능 등록하기";
