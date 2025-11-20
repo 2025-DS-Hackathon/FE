@@ -1,0 +1,97 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  margin-Top: 30px;
+  color: var(--Color-Gray-4, #212529);
+  font-feature-settings: 'liga' off, 'clig' off;
+  font-family: SUIT;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: -0.6px;
+}
+
+.partnerExchangeWrapper {
+  border: 1px solid #ff9800;
+  border-radius: 12px;
+  padding: 1px;
+  margin-bottom: 2-10px;
+  background-color: #fffaf0;
+}
+
+.myExchangeWrapper {
+  border: 1px solid #42a5f5;
+  border-radius: 12px;
+  padding: 1px;
+  margin-top: 10px;
+  background-color: #f0f8ff;
+}
+
+.exchangeWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 10px; 
+}
+
+.exchageIcon {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+}
+
+.matchingInfo {
+  text-align: center;
+  font-size: 12px;
+  color: #616161;
+  margin-top: 20px;
+  line-height: 1.5;
+  padding-bottom: 20px;
+}
+
+.actionsContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding: 20px 0;
+}
+
+.rejectButton {
+  flex: 1;
+  padding: 15px;
+  background-color: #e0e0e0;
+  color: #616161;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.acceptButton {
+  flex: 1;
+  padding: 15px;
+  background-color: #212121;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
