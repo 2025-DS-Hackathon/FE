@@ -1,0 +1,422 @@
+/* ==================================================== */
+/* 1. Global 및 ChatPage 스타일 */
+/* ==================================================== */
+.chat-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #DEE2E6; 
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.chat-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-info {
+    flex-grow: 1;
+    text-align: center;
+    padding-right: 24px;
+}
+
+.title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.subtitle {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.back-button, .menu-button {
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.messages-container {
+    margin-top: 50px;    
+    margin-bottom: 0;   
+    height: calc(100vh - 60px - 65px);
+    width: 100%;
+    overflow-y: auto;
+    padding: 10px 0 75px;
+    flex-grow: 0;
+    background-color: #DEE2E6;
+}
+
+.info-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin: 10px auto 20px;
+    max-width: 60%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* ==================================================== */
+/* 2. ChatBubble 스타일 (핵심 수정 영역) */
+/* ==================================================== */
+
+
+.chat-bubble-container {
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 15px;
+}
+
+.chat-bubble-container.mine {
+    align-items: flex-end; 
+}
+
+.chat-bubble-container.other {
+    align-items: flex-start; 
+}
+
+.chat-bubble-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%; 
+}
+
+.sender-name {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 3px;
+    margin-left: 5px;
+    align-self: flex-start; 
+    font-weight: bold;
+}
+
+.chat-bubble {
+    padding: 8px 12px; 
+    border-radius: 10px; 
+    position: relative;
+    font-size: 15px;
+    line-height: 1.4;
+    box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    align-items: flex-end;
+}
+
+.chat-bubble-container.mine .chat-bubble {
+    background-color: #e2e2e2; 
+    color: #333;
+    border-top-right-radius: 2px; 
+    margin-right: 5px; 
+}
+
+.chat-bubble-container.other .chat-bubble {
+    background-color: #ffffff; 
+    color: #333;
+    border-top-left-radius: 2px;
+    margin-left: 10px;
+}
+
+.message-text {
+    margin: 0;
+    padding-right: 5px; 
+    white-space: pre-wrap;
+}
+
+.message-time {
+    font-size: 11px;
+    color: #607d8b;
+    align-self: flex-end; 
+    margin-left: 10px;
+    min-width: 35px; 
+}
+
+
+/* ==================================================== */
+/* 3. MessageInput 스타일 */
+/* ==================================================== */
+.message-input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    padding: 7px 10px; 
+    border-top: 1px solid #ddd;
+    align-items: center;
+}
+
+.input-field-wrapper {
+    flex-grow: 1; 
+    position: relative;
+    display: flex; 
+    align-items: center; 
+    background-color: white; 
+    border-radius: 25px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+    min-height: 48px; 
+}
+
+.message-input-field {
+    flex-grow: 1;
+    padding: 2px 18px; 
+    border: none;
+    background-color: transparent; 
+    color: #333;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    margin-right: 8px;
+    height: auto;
+    min-height: 48px; 
+    color: #333; 
+    font-family: 'SUIT', sans-serif; 
+    font-weight: 400;
+    line-height: 140%;
+    letter-spacing: -0.4px;
+}
+
+.message-send-button {
+    background: none; 
+    
+    width: 45px; 
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: none;
+    font-size: 20px;
+    box-shadow: none; 
+}
+
+.message-input-field::placeholder {
+    color: #a3a3a3;
+}
+
+.message-send-button {
+    background: none; 
+    border: none;
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: none; 
+    font-size: 20px;
+    box-shadow: none;
+}
+
+.send-arrow-icon {
+    width: 18px; 
+    height: 18px;
+    flex-shrink: 0;
+    vertical-align: middle;
+    transition: filter 0.2s ease-in-out; 
+}
+
+.message-send-button:not(:disabled) .send-arrow-icon {
+    filter: invert(40%) sepia(80%) saturate(2000%) hue-rotate(190deg) brightness(90%); 
+}
+
+.message-send-button:disabled .send-arrow-icon {
+    filter: grayscale(100%) brightness(150%) opacity(70%);
+    cursor: not-allowed;
+}
+
+/* ==================================================== */
+/* 4. ChatHeader 아이콘 및 이미지 스타일 추가 */
+/* ==================================================== */
+
+.back-button {
+    cursor: pointer;
+    padding: 5px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-arrow-icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+.menu-container {
+    position: relative; 
+    display: flex;
+    align-items: center;
+}
+
+.menu-popup {
+    position: absolute;
+    top: 40px; 
+    right: 0; 
+    background-color: white;
+    border-radius: 8px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10; 
+    min-width: 100px; 
+    padding: 8px 0; 
+}
+
+.menu-item {
+    padding: 8px 16px; 
+    cursor: pointer;
+    font-size: 15px;
+    color: #333; 
+    white-space: nowrap; 
+}
+
+.menu-item:hover {
+    background-color: #f0f0f0; 
+}
+
+.menu-button {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+}
+
+.report-modal {
+    background: white;
+    border-radius: 12px;
+    width: 350px; 
+    max-width: 350px; 
+    padding: 0; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee; 
+}
+
+.modal-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 9px;
+    flex-grow: 1; 
+    text-align: center;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+}
+
+.modal-body {
+    padding-top: ５px; 
+    padding-bottom: 25px; 
+}
+
+.reason-item-container {
+    cursor: pointer;
+}
+.reason-item {
+    padding: 15px 20px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: none;
+    position: relative;
+    color: #333;
+}
+
+.reason-item-text {
+    padding: 15px 20px;
+    font-size: 15px;
+    text-align: center;
+    color: #333;
+}
+
+
+.reason-item:hover {
+    background-color: #f7f7f7;
+}
+
+.reason-item::after {
+    content: ""; 
+    display: block;
+    position: absolute; 
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background-color: #f0f0f0; 
+}
+
+.block-warning-message {
+    position: fixed;
+    bottom: 65px; 
+    left: 0;
+    right: 0;
+    color: #D9414E; 
+
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 90; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.warning-icon-img { 
+    margin-right: 8px;
+    width: 16px; 
+    height: 16px; 
+    vertical-align: middle;
+}
+
+.warning-icon-svg { 
+    margin-right: 8px;
+    width: 16px; 
+    height: 16px; 
+    vertical-align: middle;
+    fill: #D9414E;
+}
