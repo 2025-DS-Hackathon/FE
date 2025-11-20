@@ -4,8 +4,10 @@ import Button from '../components/Button/Button';
 import '../styles/fonts.css';
 import '../styles/colors.css';
 import Back from '../components/Back';
+import { useNavigate , useLocation } from "react-router-dom";
 
 export default function TalentRegister() {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('디지털/IT');
   const categories = ['디지털/IT', '요리/생활', '취미/예술', '직무/경험', '건강/운동'];
 
@@ -149,21 +151,36 @@ export default function TalentRegister() {
   const handleMatchingRequest = () => {
     if (isFormFilled()) {
         console.log("모든 필드 확정됨. 등록 요청 시작.");
+        navigate("/");
     } else {
         console.log("모든 필수 필드가 확정되지 않았습니다.");
     }
   };
+
+  const location = useLocation();
+  const { type } = location.state || {};
+  const title =
+  type === "teach"
+    ? "배움을 줄 수 있는 것"
+    : type === "learn"
+    ? "배움을 받고 싶은것"
+    : "재능 등록하기";
+  const currentAreaText =
+  type === "teach"
+    ? "내가 가르쳐줄 수 있는 것"
+    : type === "learn"
+    ? "내가 배울을 줄 수 있는 것"
+    : "??";
+  
   
   return (
     <div className="page-wrapper">
-      <Back 
-        title="재능 등록하기" 
-        onBack={handleBack} 
-      />
+      <Back title={title} onBack={handleBack} />
+
 
       <div className="section">
         <p className="section-label">현재 영역</p>
-        <div className="gray-box">내가 배울 줄 수 있는 것</div>
+        <div className="gray-box">{currentAreaText}</div>
       </div>
 
       <div className="section">

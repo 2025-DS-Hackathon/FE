@@ -101,6 +101,7 @@ function Main() {
       openPopup(
         "신청 완료! 매칭이 확정되면 알림으로 알려드릴게요.\n잠시 후 마이페이지에서 확인해 보세요!"
       );
+      navigate("/exchange");
     }
   };
 
