@@ -12,7 +12,29 @@ function App() {
   return (
     <>
       <Routes>
+<<<<<<< Updated upstream
         <Route path="/target" element={<TargetPage />} />
+=======
+
+        {/* 메인 페이지 */}
+        <Route path="/main" element={<Main />} />
+        <Route path="/mypage" element={<MypageGuest />} />
+        <Route path="/mypage-user" element={<MypageUser />} />
+        
+        <Route path="/login" element={<Login />} /> 
+        <Route path="/extra" element={<ExtraInfo />} />
+
+        
+
+
+        <Route path="/target" element={<TargetPage />} />
+        <Route path="/notifications" element={<Notification />} />
+
+
+        <Route path="/Message" element={<MessageList />} />
+        <Route path="/Message/:chatId" element={<ChatPage />} />
+        <Route path="/exchange" element={<TalentExchange />} />
+>>>>>>> Stashed changes
       </Routes>
       
       <button onClick={handleClick}>
