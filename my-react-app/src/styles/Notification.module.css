@@ -1,0 +1,99 @@
+/* src/styles/Notification.module.css */
+
+.wrapper {
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: "SUIT", sans-serif;
+}
+
+
+
+.topBar {
+  width: 100%;
+  max-width: 390px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #ffffff;
+  margin: 0 auto;
+  border-bottom: none;  /* 아래 회색선 제거 */
+}
+
+.backArrow {
+  position: absolute;
+  left: 16px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #212529;
+}
+
+
+/* 리스트 영역 */
+.listWrapper {
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+/* 개별 알림 아이템 */
+.item {
+  padding: 16px 0;
+  border-bottom: 1px solid #f1f3f5;
+  cursor: pointer;
+}
+
+.rowTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.date {
+  font-size: 12px;
+  color: #868e96;
+}
+
+.arrow {
+  font-size: 16px;
+  color: #adb5bd;
+}
+
+/* 메시지 텍스트 */
+.message {
+  line-height: 1.5;
+}
+
+.mainText {
+  font-size: 14px;
+  color: #343a40;
+  margin: 0;
+}
+
+.subText {
+  font-size: 14px;
+  color: #343a40;
+  margin: 2px 0 0 0;
+}
+
+/* 읽음 / 안읽음 시각 차이 (지금은 살짝만) */
+.unread .mainText,
+.unread .subText {
+  font-weight: 600;
+}
+
+.read .mainText,
+.read .subText {
+  font-weight: 400;
+  color: #495057;
+}
