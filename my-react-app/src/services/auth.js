@@ -1,20 +1,15 @@
 import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-export const saveAccessToken = (token) => {
-  if (!token) return;
-  localStorage.setItem("access_token", token);
+export const logout = () => {
+  localStorage.removeItem("access_token");
 };
 
-export const kakaoLogin = async () => {
-  const res = await axios.get(`${API_BASE_URL}/auth/kakao/login`);
-  return res.data.auth_url; 
-};
-
-export const handleKakaoCallback = async (code) => {
-  const res = await axios.get(`${API_BASE_URL}/auth/kakao/callback?code=${code}`);
-  const token = res.data.access_token;
-  saveAccessToken(token);
-  return token;
+export const getKakaoLoginUrl = async () => {
+  try {
+    const res = await axios.get("http://localhost:8000/auth/kakao/login");
+    return res.data.auth_url;
+  } catch (error) {
+    console.error("카카오 로그인 URL 요청 실패:", error);
+    throw error;
+  }
 };

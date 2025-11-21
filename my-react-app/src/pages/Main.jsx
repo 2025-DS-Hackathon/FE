@@ -1,4 +1,3 @@
-// src/pages/Main.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import Header from '../components/Header';
@@ -7,6 +6,7 @@ import MatchButton from '../components/MatchButton';
 import Popup from '../components/Popup';
 import { Body2, Headline1 } from '../components/Typography/Typography';
 import styles from '../styles/Main.module.css';
+import { getMyInfo } from "../services/user";
 
 function Main() {
   const navigate = useNavigate();
@@ -27,6 +27,8 @@ function Main() {
   const [popupMessage, setPopupMessage] = useState("");
   const [popupOpen, setPopupOpen] = useState(false);
 
+  const [user, setUser] = useState(null);
+
   const openPopup = (msg) => {
     setPopupMessage(msg);
     setPopupOpen(true);
@@ -39,6 +41,22 @@ function Main() {
     const isLoggedIn = !!token;
     setIsLoggedIn(!!token);
   }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (!token) return;
+
+    const load = async () => {
+      try {
+        const info = await getMyInfo();
+        setUser(info);
+      } catch (e) {
+        console.error("유저 정보 불러오기 실패", e);
+      }
+    };
+
+    load();
+  }, []);
+
   // -----------------------------------------
   // ⭐ 헤더를 수정하지 않고 URL 감지해서 이동 처리
   // -----------------------------------------
@@ -111,14 +129,14 @@ function Main() {
 
   return (
     <div className={styles.container}>
-        <Header 
-      hasNotification={hasNotification}
-      onMyPage={() => {
-        if (isLoggedIn) navigate("/mypage-user");
-        else navigate("/mypage");
-      }}
-      onNotification={() => navigate("/notifications")}
-    />
+      <Header 
+        hasNotification={hasNotification}
+        onMyPage={() => {
+          if (isLoggedIn) navigate("/mypage-user", { state: { user } });
+          else navigate("/mypage");
+        }}
+        onNotification={() => navigate("/notifications")}
+/>
       <main className={styles.main}>
         <Headline1>
           <br />

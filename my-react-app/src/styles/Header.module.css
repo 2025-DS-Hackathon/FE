@@ -1,6 +1,6 @@
 .header {
   position: relative;
-  width: 100%;
+  max-width: 390px;
   height: 70px;
   background: #FFFFFF;
   border-radius: 0px 0px 0px 0px;

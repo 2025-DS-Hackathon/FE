@@ -7,10 +7,12 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         width: '100%',
+        maxWidth: '390px',  
+        margin: '0 auto',    
         height: '100%',
         flexShrink: 0,
         borderRadius: '0 0 12px 12px',
-        position: 'relative', 
+        position: 'relative',
     },
     backArrow: {
         width: '24px',
@@ -41,8 +43,8 @@ export default function Back({ title, onBack }) {
     const navigate = useNavigate();
     
     const handleBackClick = () => {
-        console.log("뒤로 가기 버튼 클릭됨");
-        navigate(-1);
+        console.log("메인으로 이동");
+        navigate("/");
     };
     
     return (

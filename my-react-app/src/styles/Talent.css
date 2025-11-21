@@ -9,10 +9,10 @@
 }
 
 .page-wrapper {
-  width: 100%;
+  max-width: 390px;
   min-height: 100vh;
   background: var(--page-bg);
-  padding: 18px 16px;
+  margin: 0 auto;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans KR', 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   background: var(--input-bg);

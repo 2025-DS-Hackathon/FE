@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/ExtraInfo.module.css";
+import { updateMyProfile, getMyInfo } from "../services/user";
 
 export default function ExtraInfo() {
   const [birth, setBirth] = useState("");
   const navigate = useNavigate();
 
   const isValid = birth.length === 4 && Number(birth) > 1900;
-
+  const [birthYear, setBirthYear] = useState("");
   // 출생연도 → 세대 자동 판별
   const getGeneration = () => {
     const year = Number(birth);
@@ -18,18 +19,32 @@ export default function ExtraInfo() {
     return "일반 사용자";
   };
 
-  const handleStart = () => {
+  const handleStart = async () => {
     if (!isValid) return;
 
-    const generation = getGeneration();
+    try {
+      await updateMyProfile(birth, true);
+      const updated = await getMyInfo();
 
-    navigate("/mypage-user", {
-      state: {
-        nickname: "고정은",
-        generation,
-        unreadMessages: 0,
-      },
-    });
+      localStorage.setItem("user", JSON.stringify(updated));
+
+      navigate("/mypage-user");
+    } catch (err) {
+      alert("업데이트 실패");
+    }
+  };
+
+
+  const handleSubmit = async () => {
+    try {
+      await updateMyProfile(birth, true);
+      const updated = await getMyInfo();
+      localStorage.setItem("user", JSON.stringify(updated));
+      console.log("업데이트 결과:", updated);
+      navigate("/mypage-user");
+    } catch (err) {
+      alert("업데이트 실패");
+    }
   };
 
   return (

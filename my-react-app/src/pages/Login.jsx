@@ -3,7 +3,7 @@ import Checkbox from "../components/Checkbox";
 import SocialButton from "../components/SocialButton";
 import styles from "../styles/Login.module.css";
 import { useNavigate } from "react-router-dom";
-import API from "../services/api";
+import { getKakaoLoginUrl } from "../services/auth";   // 🔥 API 대신 이거만
 
 export default function Login() {
   const [agreements, setAgreements] = useState({
@@ -17,10 +17,9 @@ export default function Login() {
 
   const handleKakaoLogin = async () => {
     try {
-      const res = await API.get("/auth/kakao/login");
-      const kakaoUrl = res.data.auth_url;
-
-      window.location.href = kakaoUrl; // 카카오 인증 페이지 이동
+      const kakaoUrl = await getKakaoLoginUrl(); 
+      console.log("▶ FastAPI에서 받은 URL:", kakaoUrl);  // 🔥 단일 API 호출
+      window.location.href = kakaoUrl;             // 카카오 인증 페이지 이동
     } catch (error) {
       console.error("카카오 로그인 URL 요청 실패", error);
     }

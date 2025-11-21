@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // BrowserRouter를 사용합니다.
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
 import TargetPage from './pages/Talent.js'; 
 import Login from "./pages/Login.jsx";
 import Main from "./pages/Main.jsx";
@@ -38,6 +38,7 @@ function App() {
         <Route path="/Message" element={<MessageList />} />
         <Route path="/Message/:chatId" element={<ChatPage />} />
         <Route path="/exchange" element={<TalentExchange />} />
+        <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
       </Routes>
 
     </Router>
