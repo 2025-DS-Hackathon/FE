@@ -9,7 +9,6 @@ export default function ExtraInfo() {
 
   const isValid = birth.length === 4 && Number(birth) > 1900;
   const [birthYear, setBirthYear] = useState("");
-  // 출생연도 → 세대 자동 판별
   const getGeneration = () => {
     const year = Number(birth);
     const age = new Date().getFullYear() - year + 1;
@@ -49,7 +48,6 @@ export default function ExtraInfo() {
 
   return (
     <div className={styles.container}>
-      {/* 상단바 */}
       <div className={styles.topBar}>
         <span className={styles.backArrow} onClick={() => navigate(-1)}>
           &lt;
@@ -57,7 +55,6 @@ export default function ExtraInfo() {
         <span className={styles.title}>추가 정보 입력</span>
       </div>
 
-      {/* 본문 */}
       <div className={styles.content}>
         <p className={styles.guideTitle}>
           서비스 이용을 위해<br />출생연도를 입력해주세요
@@ -81,7 +78,6 @@ export default function ExtraInfo() {
         </div>
       </div>
 
-      {/* 버튼 */}
       <div className={styles.buttonArea}>
         <button
           disabled={!isValid}

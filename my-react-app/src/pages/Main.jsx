@@ -125,8 +125,6 @@ function Main() {
         const data = await startMatching();
         console.log("매칭 시작 응답:", data);
 
-        // 🔴 [수정] 결과가 무엇이든 무조건 교환 페이지로 이동시킵니다.
-        // (MATCHED_IMMEDIATELY, QUEUED, ALREADY_WAITING 모두 허용)
         if (data.match_id) {
            openPopup("매칭 확인 페이지로 이동합니다. (테스트 모드)");
            navigate("/exchange", { state: { matchId: data.match_id } });

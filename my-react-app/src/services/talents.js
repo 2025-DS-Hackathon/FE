@@ -1,4 +1,4 @@
-import api from "./api";  // axios 인스턴스 (토큰 자동 첨부)
+import api from "./api";  
 
 export async function createTalent(payload) {
   const res = await api.post(`/talents`, payload);

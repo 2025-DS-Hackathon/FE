@@ -6,22 +6,17 @@ import Back from '../components/Back';
 import exchage from '../assets/icon/exchage.png';
 import '../styles/TalentExchange.css';
 
-// API 함수들
 import { submitMatchAgreement, getMatchDetail } from "../services/matches";
 
 const TalentExchange = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const matchId = location.state?.matchId; // Main에서 넘겨준 진짜 ID
-
-  // 데이터 상태 관리
+  const matchId = location.state?.matchId; 
   const [matchData, setMatchData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 화면 켜지면 데이터 가져오기
   useEffect(() => {
     async function fetchData() {
-      // ID가 없으면 메인으로 쫓아냄
       if (!matchId) {
         alert("유효하지 않은 접근입니다. (매칭 ID 없음)");
         navigate("/");
@@ -34,7 +29,7 @@ const TalentExchange = () => {
         setMatchData(data);
       } catch (err) {
         console.error("조회 실패:", err);
-        alert("매칭 정보를 불러오는 데 실패했습니다."); // 404가 뜨면 여기서 잡힘
+        alert("매칭 정보를 불러오는 데 실패했습니다."); 
         navigate("/");
       } finally {
         setLoading(false);
@@ -61,7 +56,7 @@ const TalentExchange = () => {
     try {
       await submitMatchAgreement(matchId, true);
       alert("매칭을 수락했습니다! 채팅방 목록으로 이동합니다.");
-      navigate("/Message"); // 채팅 목록 페이지(추후 구현)
+      navigate("/Message");
     } catch (error) {
       alert("수락 처리에 실패했습니다.");
     }
@@ -79,7 +74,6 @@ const TalentExchange = () => {
         <p>재능 교환을 수락하시겠습니까?</p>
       </div>
 
-      {/* 1. 상대방 재능 (데이터가 있을 때만 표시) */}
       <div className={styles.partnerExchangeWrapper}>
         {partner_talent ? (
           <ExchangeItem 
@@ -99,7 +93,6 @@ const TalentExchange = () => {
         <img src={exchage} alt="교환 아이콘" className="exchageIcon"/>
       </div>
 
-      {/* 2. 내 재능 */}
       <div className={styles.myExchangeWrapper}>
         {my_talent ? (
           <ExchangeItem 

@@ -3,7 +3,7 @@ import Checkbox from "../components/Checkbox";
 import SocialButton from "../components/SocialButton";
 import styles from "../styles/Login.module.css";
 import { useNavigate } from "react-router-dom";
-import { getKakaoLoginUrl } from "../services/auth";   // 🔥 API 대신 이거만
+import { getKakaoLoginUrl } from "../services/auth";   
 
 export default function Login() {
   const [agreements, setAgreements] = useState({
@@ -18,8 +18,8 @@ export default function Login() {
   const handleKakaoLogin = async () => {
     try {
       const kakaoUrl = await getKakaoLoginUrl(); 
-      console.log("▶ FastAPI에서 받은 URL:", kakaoUrl);  // 🔥 단일 API 호출
-      window.location.href = kakaoUrl;             // 카카오 인증 페이지 이동
+      console.log("▶ FastAPI에서 받은 URL:", kakaoUrl); 
+      window.location.href = kakaoUrl;            
     } catch (error) {
       console.error("카카오 로그인 URL 요청 실패", error);
     }
@@ -28,7 +28,7 @@ export default function Login() {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.textCenter}>
-        <h1>Project Name</h1>
+        <h1>GENBRIDGE</h1>
         <p>세대를 넘어 재능을 교환해 보세요!</p>
       </div>
 

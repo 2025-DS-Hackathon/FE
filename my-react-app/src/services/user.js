@@ -1,10 +1,5 @@
-// src/services/user.js
 import api from "./api";
 
-/**
- * ⭐ 현재 로그인한 사용자 정보 조회
- * GET /users/me
- */
 export const getMyInfo = async () => {
   try {
     const res = await api.get("/users/me");
@@ -15,10 +10,7 @@ export const getMyInfo = async () => {
   }
 };
 
-/**
- * ⭐ 내 정보 수정(출생연도, 약관동의)
- * PATCH /users/me/profile
- */
+
 export const updateMyProfile = async (birthYear, termsAgreed) => {
   try {
     const token = localStorage.getItem("access_token");
