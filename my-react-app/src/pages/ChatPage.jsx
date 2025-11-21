@@ -5,7 +5,7 @@ import MessageInput from '../components/ChatInput.jsx';
 import '../styles/Chat.css';
 import ChatHeader from '../components/ChatHeader';
 import info from '../assets/icon/info.png';
-
+import { pingMessages } from "../services/messages";
 
 const myName = "사용자 닉네임";
 const mockChatData = [

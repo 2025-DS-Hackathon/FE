@@ -13,7 +13,7 @@ function Main() {
   const location = useLocation();
 
   // 임시 로그인 / 등록 상태
-  const [isLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [learnRegistered, setLearnRegistered] = useState(false);
   const [teachRegistered, setTeachRegistered] = useState(false);
 
@@ -34,7 +34,11 @@ function Main() {
   const closePopup = () => setPopupOpen(false);
 
   const canMatch = learnRegistered && teachRegistered;
-
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    const isLoggedIn = !!token;
+    setIsLoggedIn(!!token);
+  }, []);
   // -----------------------------------------
   // ⭐ 헤더를 수정하지 않고 URL 감지해서 이동 처리
   // -----------------------------------------

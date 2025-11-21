@@ -2,95 +2,45 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Notification.module.css";
-
-const DUMMY_NOTIFICATIONS = [
-  {
-    id: 1,
-    date: "25.11.15",
-    type: "message_new",
-    title: "새 쪽지가 있습니다. 지금 확인해보세요!",
-    body: "",
-    isRead: false,
-  },
-  {
-    id: 2,
-    date: "25.11.14",
-    type: "match_success",
-    title: "매칭이 성공 되었습니다.",
-    body: "지금 바로 쪽지함을 통해 재능을 공유해보세요!",
-    isRead: false,
-  },
-  {
-    id: 3,
-    date: "25.11.14",
-    type: "match_ready",
-    title: "고정은님과 재능 교환 가능성이 생겼습니다!",
-    body: "",
-    isRead: false,
-  },
-  {
-    id: 4,
-    date: "25.11.13",
-    type: "match_cancel",
-    title: "매칭이 취소되었습니다.",
-    body: "다시 재능 공유를 신청해보세요.",
-    isRead: false,
-  },
-  {
-    id: 5,
-    date: "25.11.12",
-    type: "match_fail",
-    title: "매칭 대기시간(24시간)이 만료되어",
-    body: "매칭에 실패했습니다.",
-    isRead: false,
-  },
-];
+import { getNotifications } from "../services/notifications";
+import Back from "../components/Back";
 
 export default function Notification() {
   const navigate = useNavigate();
-  const [notifications, setNotifications] = useState(DUMMY_NOTIFICATIONS);
+  const [notifications, setNotifications] = useState([]);
 
- 
   useEffect(() => {
-    setNotifications((prev) =>
-      prev.map((n) => ({
-        ...n,
-        isRead: true,
-      }))
-    );
-
-   
-    
+    getNotifications().then((data) => {
+      const mapped = data.map((item) => ({
+        id: item.notif_id,
+        title: item.content,
+        date: item.timestamp.split("T")[0],
+        isRead: item.is_read,
+        type: item.type,
+        link: item.link_path,
+      }));
+      setNotifications(mapped);
+    });
   }, []);
 
   const handleBack = () => {
-    
-    navigate("/main");
+    navigate("/");
   };
 
   const handleClickNotification = (item) => {
-    // type 에 따라 이동 분기
-    if (item.type === "message_new" || item.type === "match_success") {
-      navigate("/messages"); // 쪽지함 페이지 (이름 바꾸기) 
-    } else if (item.type === "match_ready") {
-      navigate("/match-agree"); // 매칭 합의 페이지 (이름 바꾸기)
-    } else if (item.type === "match_fail" || item.type === "match_cancel") {
-      
+    if (item.type === "NEW_MESSAGE" || item.type === "MATCH_SUCCESS") {
+      navigate("/messages");
+    } else if (item.type === "MATCH_FOUND") {
+      navigate("/match-agree");
+    } else {
       return;
     }
   };
 
   return (
     <div className={styles.wrapper}>
-      {/* 헤더 */}
-      <header className={styles.topBar}>
-        <span className={styles.backArrow} onClick={handleBack}>
-          &lt;
-        </span>
-        <span className={styles.title}>알림함</span>
-      </header>
+      <Back title="알림함" onBack={handleBack} />
 
-      {/* 알림 리스트 */}
       <main className={styles.listWrapper}>
         {notifications.map((item) => (
           <div
@@ -102,13 +52,11 @@ export default function Notification() {
           >
             <div className={styles.rowTop}>
               <span className={styles.date}>{item.date}</span>
-             
               <span className={styles.arrow}>&gt;</span>
             </div>
 
             <div className={styles.message}>
               <p className={styles.mainText}>{item.title}</p>
-              {item.body && <p className={styles.subText}>{item.body}</p>}
             </div>
           </div>
         ))}

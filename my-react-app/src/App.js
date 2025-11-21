@@ -11,6 +11,7 @@ import Notification from "./pages/Notification";
 import MessageList from "./pages/MessageList.js";
 import ChatPage from "./pages/ChatPage.jsx";
 import TalentExchange from "./pages/TalentExchange.jsx";
+import KakaoCallback from "./pages/KakaoCallback.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
         <Route path="/login" element={<Login />} /> 
         <Route path="/extra" element={<ExtraInfo />} />
+        <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
 
         {/* 메인 페이지 */}
         <Route path="/" element={<Main />} />

@@ -20,7 +20,7 @@ export default function MypageUser() {
     navigate("/login");
   };
 
-  // 🔥 세대에 따라 색 자동 설정
+  // 🔥 세대 색상
   const tagColor =
     user.generation === "시니어 사용자" ? "#ffa04d" : "#4d77ff";
 
