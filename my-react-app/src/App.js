@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
-import TargetPage from './pages/Talent.js'; 
+import TargetPage from './pages/talent.js'; 
 import Login from "./pages/Login.jsx";
 import Main from "./pages/Main.jsx";
 import ExtraInfo from "./pages/ExtraInfo.jsx";
@@ -24,7 +24,14 @@ function App() {
 
         {/* 메인 페이지 */}
         <Route path="/" element={<Main />} />
-        <Route path="/mypage" element={<MypageGuest />} />
+        <Route
+          path="/mypage"
+          element={
+            localStorage.getItem("access_token")
+              ? <MypageUser />
+              : <MypageGuest />
+          }
+        />
         <Route path="/mypage-user" element={<MypageUser />} />
 
         <Route path="/main" element={<Main />} /> 

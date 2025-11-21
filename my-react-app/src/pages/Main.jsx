@@ -57,21 +57,13 @@ function Main() {
     load();
   }, []);
 
-  // -----------------------------------------
-  // ⭐ 헤더를 수정하지 않고 URL 감지해서 이동 처리
-  // -----------------------------------------
   useEffect(() => {
-    // 알림 아이콘 → /notifications
-    if (location.pathname === "/go-notifications") {
-      navigate("/notifications");
-    }
-
-    // 사람 아이콘
     if (location.pathname === "/go-profile") {
-      if (isLoggedIn) navigate("/mypage-user");
-      else navigate("/mypage");
+      if (localStorage.getItem("access_token")) navigate("/mypage-user");
+      else navigate("/login");
     }
   }, [location.pathname, isLoggedIn, navigate]);
+
 
   // -----------------------------------------
   // 📌 재능 카드 클릭 처리

@@ -2,20 +2,49 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/MypageUser.module.css";
 import { getMyInfo } from "../services/user";
+import api from "../services/api";
 
 export default function MypageUser() {
   const location = useLocation();
   const navigate = useNavigate();
 
   // ------------------------------
-  // 1) 상태 정의
+  // 1) 상태 정의 (🔥 제일 위에 있어야 함)
   // ------------------------------
   const [user, setUser] = useState(location.state?.user || null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
   // ------------------------------
-  // 2) 서버에서 내 정보 다시 불러오기
+  // 2) 로그인 안 되어있으면 로그인 페이지로 이동
+  // ------------------------------
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    // 🔥 2) 토큰이 있으면 → /users/me 조회
+    api
+      .get("/users/me")
+      .then((res) => {
+        if (!res.data) {
+          // 혹시라도 user 데이터가 없으면 로그인 페이지로
+          navigate("/login");
+        } else {
+          setUser(res.data);
+        }
+      })
+      .catch(() => {
+        // 🔥 3) 백엔드에서 401(Unauthorized) 오면 로그인 페이지로 이동
+        localStorage.removeItem("access_token");
+        navigate("/login");
+      });
+  }, [navigate]);
+
+  // ------------------------------
+  // 3) 서버에서 내 정보 다시 불러오기
   // ------------------------------
   useEffect(() => {
     const loadMyInfo = async () => {
@@ -34,7 +63,7 @@ export default function MypageUser() {
   }, []);
 
   // ------------------------------
-  // 3) 로딩 화면
+  // 4) 로딩 화면
   // ------------------------------
   if (loading) {
     return <div style={{ padding: 20 }}>유저 정보를 불러오는 중...</div>;
@@ -45,7 +74,7 @@ export default function MypageUser() {
   }
 
   // ------------------------------
-  // 4) 세대 텍스트 변환
+  // 5) 세대 텍스트 변환
   // ------------------------------
   const generation =
     user.user_type === "young"
@@ -57,7 +86,7 @@ export default function MypageUser() {
   const tagColor = generation === "시니어 사용자" ? "#ffa04d" : "#4d77ff";
 
   // ------------------------------
-  // 5) 탈퇴 핸들러
+  // 6) 탈퇴 핸들러
   // ------------------------------
   const handleWithdraw = () => {
     setShowModal(false);
@@ -79,7 +108,7 @@ export default function MypageUser() {
         <div className={styles.profileCircle}></div>
 
         <div className={styles.nicknameRow}>
-          <span className={styles.nickname}>{user.nickname}</span>
+          <span className={styles.nickname}>{user?.nickname}</span>
 
           <span
             className={styles.generationTag}
@@ -87,6 +116,10 @@ export default function MypageUser() {
           >
             {generation}
           </span>
+
+          {user?.unreadMessages > 0 && (
+            <span className={styles.badge}>{user.unreadMessages}</span>
+          )}
         </div>
       </div>
 
