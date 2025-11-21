@@ -15,7 +15,6 @@ export default function Login() {
 
   const allChecked = agreements.personal && agreements.middleAge;
 
-  // 🔥 카카오 로그인 URL 받아서 이동
   const handleKakaoLogin = async () => {
     try {
       const res = await API.get("/auth/kakao/login");

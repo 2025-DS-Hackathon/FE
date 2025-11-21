@@ -54,7 +54,7 @@ export default function MypageUser() {
       <div className={styles.menuList}>
         <div
           className={styles.menuItem}
-          onClick={() => navigate("/messages")}
+          onClick={() => navigate("/message")}
         >
           <span className={styles.icon}>✉</span>
           <span className={styles.centerText}>쪽지 수신함</span>

@@ -14,10 +14,8 @@ export default function KakaoCallback() {
         const res = await API.get(`/auth/kakao/callback?code=${code}`);
         const { access_token } = res.data;
 
-        // JWT 저장
         localStorage.setItem("access_token", access_token);
 
-        // 첫 로그인이면 extra info로 이동
         navigate("/extra-info");
 
       } catch (err) {
