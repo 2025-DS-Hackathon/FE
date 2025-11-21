@@ -135,10 +135,10 @@ export default function MypageUser() {
 
         <div
           className={styles.menuItem}
-          onClick={() => window.open("https://example.com/terms", "_blank")}
+          onClick={() => navigate("/exchange")}
         >
           <span className={styles.icon}>⚙</span>
-          <span className={styles.centerText}>개인정보 및 이용약관 확인</span>
+          <span className={styles.centerText}>결과 매칭보기</span>
         </div>
 
         <div className={styles.menuItem}>

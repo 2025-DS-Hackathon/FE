@@ -7,7 +7,8 @@ import Popup from '../components/Popup';
 import { Body2, Headline1 } from '../components/Typography/Typography';
 import styles from '../styles/Main.module.css';
 import { getMyInfo } from "../services/user";
-import { getMyTalentSummary } from "../services/talents"; 
+import { getMyTalentSummary } from "../services/talents";
+import { startMatching } from "../services/matches";
 
 function Main() {
   const navigate = useNavigate();
@@ -113,27 +114,30 @@ function Main() {
   // 매칭 시작 버튼
   const canMatch = teachRegistered && learnRegistered;
 
-  const handleMatch = () => {
+  const handleMatch = async () => {
     if (!canMatch) {
       openPopup("두 재능을 모두 등록해야 매칭이 가능합니다.");
       return;
     }
 
-    if (matchStatus === "stopped") {
-      openPopup("세대 조건이 맞지 않아 신청이 불가합니다.");
-      return;
-    }
+    if (matchStatus === "normal" || matchStatus === "stopped" || matchStatus === "waiting") {
+      try {
+        const data = await startMatching();
+        console.log("매칭 시작 응답:", data);
 
-    if (matchStatus === "waiting") {
-      openPopup("이미 신청 완료 상태입니다.\n매칭이 확정되면 알려드릴게요!");
-      return;
-    }
+        // 🔴 [수정] 결과가 무엇이든 무조건 교환 페이지로 이동시킵니다.
+        // (MATCHED_IMMEDIATELY, QUEUED, ALREADY_WAITING 모두 허용)
+        if (data.match_id) {
+           openPopup("매칭 확인 페이지로 이동합니다. (테스트 모드)");
+           navigate("/exchange", { state: { matchId: data.match_id } });
+        } else {
+           openPopup(data.message);
+        }
 
-    if (matchStatus === "normal") {
-      setMatchStatus("waiting");
-      setHasNotification(true);
-      openPopup("신청 완료! 잠시 후 마이페이지에서 확인해 보세요!");
-      navigate("/exchange");
+      } catch (e) {
+        console.error(e);
+        openPopup("매칭 신청 중 오류가 발생했습니다.");
+      }
     }
   };
 
