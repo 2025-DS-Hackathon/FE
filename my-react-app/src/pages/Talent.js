@@ -11,7 +11,13 @@ export default function TalentRegister() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('디지털/IT');
   const categories = ['디지털/IT', '요리/생활', '취미/예술', '직무/경험', '건강/운동'];
-
+  const categoryMap = {
+  "디지털/IT": "DIGITAL_IT",
+  "요리/생활": "COOKING",
+  "취미/예술": "HOBBY",
+  "직무/경험": "JOB_EXPERIENCE",
+  "건강/운동": "HEALTH_SPORT",
+};
   const [talentName, setTalentName] = useState(''); 
   const [talentTags, setTalentTags] = useState(''); 
   const [talentDescription, setTalentDescription] = useState('');
@@ -76,7 +82,7 @@ export default function TalentRegister() {
     type: type === "teach" ? "Teach" : "Learn",
     category: selectedCategory,
     title: talentName,
-    tags: talentTags,
+    tags: talentTags.split(',').map(t => t.trim()).filter(Boolean).join(','),
     description: talentDescription,
   };
 

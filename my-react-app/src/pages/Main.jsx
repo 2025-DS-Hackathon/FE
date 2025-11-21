@@ -7,67 +7,92 @@ import Popup from '../components/Popup';
 import { Body2, Headline1 } from '../components/Typography/Typography';
 import styles from '../styles/Main.module.css';
 import { getMyInfo } from "../services/user";
+import { getMyTalentSummary } from "../services/talents"; 
 
 function Main() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 임시 로그인 / 등록 상태
+  // 로그인 여부
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [learnRegistered, setLearnRegistered] = useState(false);
+
+  // Teach / Learn 등록 여부
   const [teachRegistered, setTeachRegistered] = useState(false);
+  const [learnRegistered, setLearnRegistered] = useState(false);
+
+  // 유저 정보 / 재능 요약
+  const [user, setUser] = useState(null);
+  const [summary, setSummary] = useState(null);
+
+  // 팝업
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupOpen, setPopupOpen] = useState(false);
 
   // 알림 뱃지
   const [hasNotification, setHasNotification] = useState(true);
 
-  // 매칭 상태: normal / waiting / stopped
+  // 매칭 상태
   const [matchStatus, setMatchStatus] = useState("normal");
-
-  // 팝업 관리
-  const [popupMessage, setPopupMessage] = useState("");
-  const [popupOpen, setPopupOpen] = useState(false);
-
-  const [user, setUser] = useState(null);
 
   const openPopup = (msg) => {
     setPopupMessage(msg);
     setPopupOpen(true);
   };
+
   const closePopup = () => setPopupOpen(false);
 
-  const canMatch = learnRegistered && teachRegistered;
+  // 로그인 여부 판별
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    const isLoggedIn = !!token;
     setIsLoggedIn(!!token);
   }, []);
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (!token) return;
 
-    const load = async () => {
+  // 유저 정보 로딩
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    async function loadUser() {
       try {
         const info = await getMyInfo();
         setUser(info);
       } catch (e) {
         console.error("유저 정보 불러오기 실패", e);
       }
-    };
+    }
 
-    load();
-  }, []);
+    loadUser();
+  }, [isLoggedIn]);
 
+  // Teach / Learn 재능 요약 로딩
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    async function fetchSummary() {
+      try {
+        const data = await getMyTalentSummary();
+        console.log("📌 내 재능 요약:", data);
+        setSummary(data);
+
+        // teach/learn 등록 여부 반영
+        setTeachRegistered(!!data.teach);
+        setLearnRegistered(!!data.learn);
+      } catch (err) {
+        console.error("❌ 재능 요약 조회 실패:", err);
+      }
+    }
+
+    fetchSummary();
+  }, [isLoggedIn]);
+
+  // 마이페이지 접근 경로 처리
   useEffect(() => {
     if (location.pathname === "/go-profile") {
-      if (localStorage.getItem("access_token")) navigate("/mypage-user");
+      if (isLoggedIn) navigate("/mypage-user");
       else navigate("/login");
     }
   }, [location.pathname, isLoggedIn, navigate]);
 
-
-  // -----------------------------------------
-  // 📌 재능 카드 클릭 처리
-  // -----------------------------------------
+  // 재능 카드 클릭
   const handleTalentClick = (type, registered) => {
     if (!isLoggedIn) {
       navigate("/login");
@@ -85,9 +110,9 @@ function Main() {
     }
   };
 
-  // -----------------------------------------
-  // 📌 랜덤 매칭 버튼 클릭 처리
-  // -----------------------------------------
+  // 매칭 시작 버튼
+  const canMatch = teachRegistered && learnRegistered;
+
   const handleMatch = () => {
     if (!canMatch) {
       openPopup("두 재능을 모두 등록해야 매칭이 가능합니다.");
@@ -95,40 +120,34 @@ function Main() {
     }
 
     if (matchStatus === "stopped") {
-      openPopup(
-        "현재 서비스는 청년-시니어 매칭만 운영 중입니다.\n세대 조건이 맞지 않아 신청이 불가합니다."
-      );
+      openPopup("세대 조건이 맞지 않아 신청이 불가합니다.");
       return;
     }
 
     if (matchStatus === "waiting") {
-      openPopup(
-        "이미 신청 완료 상태입니다.\n매칭이 확정되면 알림으로 알려드릴게요!"
-      );
+      openPopup("이미 신청 완료 상태입니다.\n매칭이 확정되면 알려드릴게요!");
       return;
     }
 
     if (matchStatus === "normal") {
       setMatchStatus("waiting");
       setHasNotification(true);
-
-      openPopup(
-        "신청 완료! 매칭이 확정되면 알림으로 알려드릴게요.\n잠시 후 마이페이지에서 확인해 보세요!"
-      );
+      openPopup("신청 완료! 잠시 후 마이페이지에서 확인해 보세요!");
       navigate("/exchange");
     }
   };
 
   return (
     <div className={styles.container}>
-      <Header 
+      <Header
         hasNotification={hasNotification}
         onMyPage={() => {
           if (isLoggedIn) navigate("/mypage-user", { state: { user } });
           else navigate("/mypage");
         }}
         onNotification={() => navigate("/notifications")}
-/>
+      />
+
       <main className={styles.main}>
         <Headline1>
           <br />
@@ -140,11 +159,14 @@ function Main() {
           <TalentCard
             type="teach"
             isRegistered={teachRegistered}
+            talent={summary?.teach ?? null}
             onClick={() => handleTalentClick("teach", teachRegistered)}
           />
+
           <TalentCard
             type="learn"
             isRegistered={learnRegistered}
+            talent={summary?.learn ?? null}
             onClick={() => handleTalentClick("learn", learnRegistered)}
           />
         </div>

@@ -1,14 +1,11 @@
-import api from "./api";
+import api from "./api";  // axios 인스턴스 (토큰 자동 첨부)
 
-export const pingTalents = async () => {
-  return api.get("/talents/talents/ping");
-};
+export async function createTalent(payload) {
+  const res = await api.post(`/talents`, payload);
+  return res.data;
+}
 
-export const createTalent = async (payload) => {
-  return api.post("/talents/talents", payload);
-};
-
-export const getMyTalentSummary = async () => {
-  return api.get("/talents/talents/my-summary");
-};
-
+export async function getMyTalentSummary() {
+  const res = await api.get(`/talents/my-summary`);
+  return res.data;
+}
