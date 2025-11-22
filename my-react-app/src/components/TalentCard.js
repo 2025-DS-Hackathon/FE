@@ -1,56 +1,54 @@
 import React from "react";
 import styles from "../styles/TalentCard.module.css";
-import { Body2 } from "./Typography/Typography";
+
 
 const TalentCard = ({ type, isRegistered, talent, onClick }) => {
   const isTeach = type === "teach";
-
-
-  const textStyle = isTeach ? styles.blueText : styles.orangeText;
+  const bgClass = isTeach ? styles.blue : styles.orange;
+  const borderClass = isTeach ? styles.blueBorder : styles.orangeBorder;
+  const textClass = isTeach ? styles.blueText : styles.orangeText;
 
   return (
     <div className={styles.cardWrapper}>
 
-      <div className={`${styles.header} ${isTeach ? styles.blue : styles.orange}`}>
+      <div className={`${styles.header} ${bgClass}`}>
         {isTeach ? "내가 배움을 줄 수 있는 것" : "내가 배움을 받고 싶은 것"}
       </div>
 
       <div
-        className={`${styles.cardBox} ${
-          isTeach ? styles.blueBorder : styles.orangeBorder
-        }`}
+        className={`${styles.cardBox} ${borderClass}`}
         onClick={onClick}
       >
         {!isRegistered || !talent ? (
-
-          <>
-            <div className={`${styles.plus} ${textStyle}`}>
-              +
-            </div>
-            <Body2 className={`${styles.placeholder} ${textStyle}`}>
+          <div className={styles.emptyContainer}>
+            <div className={`${styles.plus} ${textClass}`}>+</div>
+            <div className={`${styles.placeholder} ${textClass}`}>
               {isTeach
                 ? "내가 가르치고 싶은 재능을 등록해주세요"
                 : "내가 배우고 싶은 재능을 등록해주세요"}
-            </Body2>
-          </>
+            </div>
+          </div>
         ) : (
-          <div className={styles.content} style={{ padding: '10px', width: '100%' }}>
-            <Body2 className={textStyle} style={{ fontWeight: 'bold', marginBottom: '4px' }}>
+          <div className={styles.contentContainer}>
+            <span className={`${styles.categoryBadge} ${textClass} ${borderClass}`}>
               {talent.category}
-            </Body2>
+            </span>
 
-            <div style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '6px' }}>
+            <div className={styles.title}>
               {talent.title}
             </div>
 
-            <Body2 style={{ marginBottom: '8px', color: '#555' }}>
-                {talent.description}
-            </Body2>
+            <div className={styles.description}>
+              {talent.description}
+            </div>
 
-            <div style={{ fontSize: '0.85rem', color: '#888' }}>
-              {talent.tags && talent.tags.split(',').map((tag, idx) => (
-                 <span key={idx} style={{ marginRight: '6px' }}>#{tag.trim()}</span>
-              ))}
+            <div className={styles.tags}>
+              {talent.tags &&
+                talent.tags.split(",").map((tag, idx) => (
+                  <span key={idx} style={{ marginRight: "8px" }}>
+                    #{tag.trim()}
+                  </span>
+                ))}
             </div>
           </div>
         )}

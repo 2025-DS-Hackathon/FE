@@ -26,12 +26,12 @@ function MessageList() {
     navigate(-1);
   };
 
-  const handleItemClick = (matchId) => {
-    // 상세 페이지 URL 형식에 맞게 수정 (/Message/숫자)
-    navigate(`/Message/${matchId}`);
+  const handleItemClick = (matchId, partnerName) => {
+    navigate(`/Message/${matchId}`, { 
+      state: { partnerName: partnerName } 
+    });
   };
 
-  // [수정] chats 데이터를 기반으로 정렬
   const sortedChats = [...chats].sort((a, b) => {
       const timeA = new Date(a.last_message_time || 0);
       const timeB = new Date(b.last_message_time || 0);
@@ -54,15 +54,13 @@ function MessageList() {
             sortedChats.map((chat) => (
             <MessageItem
                 key={chat.match_id}
-                // MessageItem props에 맞게 데이터 전달
                 id={chat.match_id}
                 sender={chat.partner_nickname}
                 content={chat.last_message || "대화 내용 없음"}
                 time={chat.last_message_time}
                 unreadCount={chat.unread_count}
                 
-                // 클릭 핸들러 연결
-                onItemClick={() => handleItemClick(chat.match_id)}
+                onItemClick={() => handleItemClick(chat.match_id, chat.partner_nickname)}
             />
             ))
         )}

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; 
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import ChatBubble from '../components/ChatBubble.jsx';
 import MessageInput from '../components/ChatInput.jsx'; 
 import '../styles/Chat.css';
@@ -11,11 +11,10 @@ import api from '../services/api.js';
 const ChatPage = () => {
   const params = useParams();
   const navigate = useNavigate();
-
-  // [수정] URL 파라미터가 :matchId 인지 :id 인지 몰라도 둘 다 확인하도록 변경
+  const location = useLocation();
+  const receivedName = location.state?.partnerName;
   const matchId = params.matchId || params.id; 
 
-  // 디버깅용 로그 (F12 콘솔에서 확인 가능)
   console.log("URL 파라미터:", params);
   console.log("현재 매칭 ID:", matchId);
   
@@ -24,7 +23,6 @@ const ChatPage = () => {
   const [isBlocked, setIsBlocked] = useState(false); 
   const messagesEndRef = useRef(null); 
 
-  // 1. 내 ID 가져오기
   useEffect(() => {
     const getMyId = async () => {
       try {
@@ -37,11 +35,11 @@ const ChatPage = () => {
     getMyId();
   }, []);
 
-  // 2. 데이터 로드 함수
   const loadData = async () => {
-    if (!matchId) return; // ID가 없으면 실행 안 함
+    if (!matchId) return; 
     try {
       const data = await getChatDetail(matchId);
+      data.sort((a, b) => a.message_id - b.message_id);
       setMessages(data);
       await markMessagesAsRead(matchId);
     } catch (error) {
@@ -49,30 +47,27 @@ const ChatPage = () => {
     }
   };
 
-  // 3. 초기 로드
   useEffect(() => {
     if (matchId) loadData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [matchId]);
 
-  // 4. 스크롤 자동 이동
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // 5. 메시지 전송 핸들러
   const handleSendMessage = async (inputContent) => {
     if (!inputContent || !inputContent.trim()) return;
     try {
       await sendMessage(matchId, inputContent);
-      await loadData(); // 전송 후 목록 갱신
+      await loadData(); 
     } catch (error) {
       alert("전송 실패");
       console.error(error);
     }
   };
 
-  // 6. 차단 핸들러
   const handleBlockUser = async () => {
       if(window.confirm("정말로 차단하시겠습니까?")) {
         try {
@@ -85,13 +80,12 @@ const ChatPage = () => {
       }
   };
 
-  // UI용 데이터 매핑
   const partnerMsg = messages.find(m => m.sender_id !== myUserId);
+  const displayPartnerName = receivedName || (partnerMsg ? "상대방" : "매칭 상대");
   const currentChat = {
-    interlocutorName: partnerMsg ? `상대방` : "매칭 상대", 
+    interlocutorName: displayPartnerName, 
   };
 
-  // matchId가 없으면 에러 메시지 표시
   if (!matchId) {
       return (
         <div style={{ padding: 20, textAlign: 'center' }}>
@@ -107,7 +101,7 @@ const ChatPage = () => {
       <ChatHeader 
         interlocutorName={currentChat.interlocutorName} 
         infoText={currentChat.infoText} 
-        onBlockUser={handleBlockUser} 
+        onBlockUser={handleBlockUser}
       />
 
       <div className="messages-container">
@@ -117,7 +111,7 @@ const ChatPage = () => {
             message={msg.content} 
             time={new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} 
             isMine={msg.sender_id === myUserId}
-            senderName={msg.sender_id === myUserId ? "나" : currentChat.interlocutorName} 
+            senderName={msg.sender_id === myUserId ? "나" : currentChat.interlocutorName}
           />
         ))}
         <div ref={messagesEndRef} /> 
