@@ -21,8 +21,6 @@ function App() {
         <Route path="/login" element={<Login />} /> 
         <Route path="/extra" element={<ExtraInfo />} />
         <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
-
-        {/* 메인 페이지 */}
         <Route path="/" element={<Main />} />
         <Route
           path="/mypage"

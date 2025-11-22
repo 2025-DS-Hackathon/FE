@@ -1,4 +1,3 @@
-// src/pages/Notification.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Notification.module.css";
@@ -69,11 +68,10 @@ export default function Notification() {
   };
 
   const handleClickNotification = (item) => {
-    // type 에 따라 이동 분기
     if (item.type === "message_new" || item.type === "match_success") {
-      navigate("/messages"); // 쪽지함 페이지 (이름 바꾸기) 
+      navigate("/messages"); 
     } else if (item.type === "match_ready") {
-      navigate("/match-agree"); // 매칭 합의 페이지 (이름 바꾸기)
+      navigate("/match-agree"); 
     } else if (item.type === "match_fail" || item.type === "match_cancel") {
       
       return;
@@ -82,7 +80,6 @@ export default function Notification() {
 
   return (
     <div className={styles.wrapper}>
-      {/* 헤더 */}
       <header className={styles.topBar}>
         <span className={styles.backArrow} onClick={handleBack}>
           &lt;
@@ -90,7 +87,6 @@ export default function Notification() {
         <span className={styles.title}>알림함</span>
       </header>
 
-      {/* 알림 리스트 */}
       <main className={styles.listWrapper}>
         {notifications.map((item) => (
           <div

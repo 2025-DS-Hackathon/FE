@@ -1,6 +1,6 @@
 .checkboxWrapper {
   display: flex;
-  align-items: flex-start; /* 체크박스를 텍스트 위 기준으로 맞춤 */
+  align-items: flex-start; 
   gap: 6px;
   margin-bottom: 24px;
 }
@@ -10,7 +10,7 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  margin-top: 3px; /* 텍스트와 딱 맞게 */
+  margin-top: 3px; 
 }
 
 .checkboxLabel {

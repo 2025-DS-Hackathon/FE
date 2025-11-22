@@ -11,8 +11,6 @@ import { submitMatchAgreement, getMatchDetail } from "../services/matches";
 const TalentExchange = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // 테스트 편의를 위해 matchId가 없으면 12번을 기본값으로 사용
   const matchId = location.state?.matchId || 12; 
 
   const [matchData, setMatchData] = useState(null);
@@ -61,7 +59,6 @@ const TalentExchange = () => {
   if (loading) return <div style={{padding:'20px', textAlign:'center'}}>로딩 중...</div>;
   if (!matchData) return null;
 
-  // 👇 [핵심 수정] 여기서 복수형(_talents)으로 데이터를 받습니다.
   const { my_talents, partner_talents, partner_nickname } = matchData;
 
   return (
@@ -71,7 +68,6 @@ const TalentExchange = () => {
         <p>재능 교환을 수락하시겠습니까?</p>
       </div>
 
-      {/* 1. 상대방 재능 리스트 (여러 개일 수 있음) */}
       <div className={styles.partnerExchangeWrapper}>
         {partner_talents && partner_talents.length > 0 ? (
           partner_talents.map((t, idx) => (
@@ -92,12 +88,10 @@ const TalentExchange = () => {
         )}
       </div>
 
-      {/* 교환 아이콘 */}
       <div className="exchangeWrapper">
         <img src={exchage} alt="교환 아이콘" className="exchageIcon"/>
       </div>
 
-      {/* 2. 내 재능 리스트 (여러 개일 수 있음) */}
       <div className={styles.myExchangeWrapper}>
         {my_talents && my_talents.length > 0 ? (
           my_talents.map((t, idx) => (

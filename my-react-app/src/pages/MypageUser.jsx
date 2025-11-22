@@ -11,7 +11,6 @@ export default function MypageUser() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  // 로그인 안 되어있으면 로그인 페이지로 이동
   useEffect(() => {
     const token = localStorage.getItem("access_token");
     if (!token) {
@@ -19,25 +18,21 @@ export default function MypageUser() {
       return;
     }
 
-    // 토큰이 있으면 → /users/me 조회
     api
       .get("/users/me")
       .then((res) => {
         if (!res.data) {
-          // 혹시라도 user 데이터가 없으면 로그인 페이지로
           navigate("/login");
         } else {
           setUser(res.data);
         }
       })
       .catch(() => {
-        // 백엔드에서 401(Unauthorized) 오면 로그인 페이지로 이동
         localStorage.removeItem("access_token");
         navigate("/login");
       });
   }, [navigate]);
 
-  // 서버에서 내 정보 다시 불러오기
   useEffect(() => {
     const loadMyInfo = async () => {
       try {
@@ -54,7 +49,6 @@ export default function MypageUser() {
     loadMyInfo();
   }, []);
 
-  // 로딩 화면
   if (loading) {
     return <div style={{ padding: 20 }}>유저 정보를 불러오는 중...</div>;
   }
@@ -63,7 +57,6 @@ export default function MypageUser() {
     return <div style={{ padding: 20 }}>유저 정보를 찾을 수 없습니다.</div>;
   }
 
-  // 세대 텍스트 변환
   const generation =
     user.user_type === "young"
       ? "청년 사용자"
@@ -73,7 +66,6 @@ export default function MypageUser() {
 
   const tagColor = generation === "시니어 사용자" ? "#ffa04d" : "#4d77ff";
 
-  // 탈퇴 핸들러
   const handleWithdraw = () => {
     setShowModal(false);
     alert("탈퇴되었습니다.");
