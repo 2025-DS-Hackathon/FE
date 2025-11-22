@@ -73,8 +73,7 @@ const TalentExchange = () => {
           partner_talents.map((t, idx) => (
             <div key={t.talent_id} style={{ marginBottom: '10px' }}>
               <ExchangeItem 
-                // 첫 번째만 제목 표시, 나머지는 + 표시
-                itemTitle={idx === 0 ? `상대방(${partner_nickname})이 가르쳐 줄 수 있는 것` : `+ 상대방의 추가 재능`}
+                itemTitle={idx === 0 ? `상대방이 가르쳐 줄 수 있는 것` : `+ 상대방의 추가 재능`}
                 category={t.category}
                 exchangeContent={t.title}
                 detailContent={t.description}
