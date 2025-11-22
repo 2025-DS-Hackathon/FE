@@ -1,44 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MessageItem from '../components/MessageItem'; 
 import Back from '../components/Back';
 import '../styles/MessageList.css'
 import { useNavigate } from 'react-router-dom';
-
-const messages = [
-  { id: 1, sender: '김민지', content: '첫 번째 쪽지입니다.', date: '11/15' },
-  { id: 3, sender: '박서준', content: '가장 최근에 온 쪽지입니다!', date: '11/17' },
-  { id: 2, sender: '이고은', content: '두 번째 쪽지입니다.', date: '11/16' },
-];
+import { getChatList } from '../services/messages';
 
 function MessageList() {
+
+  const [chats, setChats] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        const data = await getChatList();
+        setChats(data);
+      } catch (error) {
+        console.error('채팅 목록 로딩 실패:', error);
+      }
+    };
+    fetchChats();
+  }, []);
+
   const handleBack = () => {
-    console.log("뒤로 가기 버튼 클릭됨");
     navigate(-1);
   };
 
-  const handleItemClick = (messageId, senderName) => {
-    console.log(`쪽지 항목 클릭됨: ID=${messageId}, 발신자=${senderName}`);
-    navigate(`/Message/${messageId}`);
+  const handleItemClick = (matchId) => {
+    // 상세 페이지 URL 형식에 맞게 수정 (/Message/숫자)
+    navigate(`/Message/${matchId}`);
   };
 
-  const sortedMessages = [...messages].sort((a, b) => b.id - a.id);
+  // [수정] chats 데이터를 기반으로 정렬
+  const sortedChats = [...chats].sort((a, b) => {
+      const timeA = new Date(a.last_message_time || 0);
+      const timeB = new Date(b.last_message_time || 0);
+      return timeB - timeA;
+  });
 
   return (
     <div className="message-inbox">
       <Back 
-              title="쪽지함" 
-              onBack={handleBack} 
-            />
+          title="쪽지함" 
+          onBack={handleBack} 
+      />
 
       <div className="message-list">
-        {sortedMessages.map((msg) => (
-          <MessageItem
-            key={msg.id}
-            {...msg}
-            onItemClick={handleItemClick}
-          />
-        ))}
+        {sortedChats.length === 0 ? (
+            <div style={{padding: '20px', textAlign:'center', color:'#888'}}>
+                아직 대화가 없습니다.
+            </div>
+        ) : (
+            sortedChats.map((chat) => (
+            <MessageItem
+                key={chat.match_id}
+                // MessageItem props에 맞게 데이터 전달
+                id={chat.match_id}
+                sender={chat.partner_nickname}
+                content={chat.last_message || "대화 내용 없음"}
+                time={chat.last_message_time}
+                unreadCount={chat.unread_count}
+                
+                // 클릭 핸들러 연결
+                onItemClick={() => handleItemClick(chat.match_id)}
+            />
+            ))
+        )}
       </div>
     </div>
   );

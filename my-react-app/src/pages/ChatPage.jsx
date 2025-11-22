@@ -1,96 +1,125 @@
-import React, { useState, useRef, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom'; 
 import ChatBubble from '../components/ChatBubble.jsx';
 import MessageInput from '../components/ChatInput.jsx'; 
 import '../styles/Chat.css';
 import ChatHeader from '../components/ChatHeader';
 import info from '../assets/icon/info.png';
-
-const myName = "사용자 닉네임";
-const mockChatData = [
-  {
-    id: 1,
-    interlocutorName: "이름없음", 
-    infoText: "디지털/IT 요리/생활", 
-    messages: [ 
-        { id: 1, text: "안녕하세요, 부동산 서류 때문에 요청 드렸는데, 교환에 동의해 주셔서 정말 감사해요!", time: "14:45", isMine: true, sender: myName },
-        { id: 2, text: "네 저도 감사드려요! 저는 잠실 쪽에 사는데 혹시 거주지가 어디신가요? 직접 만나서 배워야 좋을 것 같아요.", time: "14:45", isMine: false, sender: "이름없음" },
-        { id: 3, text: "저는 서울 강동구 쪽이에요! 다행히 거리가 가까워서 직접 만나는 것에 저도 찬성입니다", time: "14:45", isMine: true, sender: myName },
-        { id: 4, text: "좋아요! 그럼 잠실역 근처에 있는 OO도서관 1층 카페 괜찮으세요?", time: "14:45", isMine: false, sender: "이름없음" },
-        { id: 5, text: "네, 잠실역 OO도서관 좋습니다! 키오스크 실습은 근처 롯데리아에서 잠시 하는 건 어떨까요?", time: "14:45", isMine: true, sender: myName },
-    ],
-  },
-  {
-    id: 2,
-    interlocutorName: "김민지",
-    infoText: "여행/레저 독서/문화",
-    messages: [
-    ]
-  },
-];
+import { getChatDetail, sendMessage, markMessagesAsRead, blockUser } from '../services/messages.js';
+import api from '../services/api.js';
 
 const ChatPage = () => {
-  const { chatId } = useParams();
-  const currentChatId = parseInt(chatId, 10);
-  const currentChat = mockChatData.find(chat => chat.id === currentChatId);
+  const params = useParams();
+  const navigate = useNavigate();
 
+  // [수정] URL 파라미터가 :matchId 인지 :id 인지 몰라도 둘 다 확인하도록 변경
+  const matchId = params.matchId || params.id; 
+
+  // 디버깅용 로그 (F12 콘솔에서 확인 가능)
+  console.log("URL 파라미터:", params);
+  console.log("현재 매칭 ID:", matchId);
   
+  const [messages, setMessages] = useState([]);
+  const [myUserId, setMyUserId] = useState(null);
+  const [isBlocked, setIsBlocked] = useState(false); 
+  const messagesEndRef = useRef(null); 
 
-  const [messages, setMessages] = useState(currentChat.messages);
-  const messagesEndRef = useRef(null);
-
-  const [isBlocked, setIsBlocked] = useState(false);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(scrollToBottom, [messages]);
-
-  const handleSendMessage = (text) => {
-    if (isBlocked) {
-      alert("차단된 사용자에게는 메시지를 보낼 수 없습니다.");
-      return;
-    }
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const timeString = `${hours}:${minutes}`;
-    
-    const newMessage = {
-      id: messages.length + 1,
-      text,
-      time: timeString,
-      isMine: true,
-      sender: myName,
+  // 1. 내 ID 가져오기
+  useEffect(() => {
+    const getMyId = async () => {
+      try {
+        const res = await api.get('/users/me'); 
+        setMyUserId(res.data.user_id);
+      } catch (err) {
+        console.error("내 정보 로드 실패", err);
+      }
     };
-    
-    setMessages(prevMessages => [...prevMessages, newMessage]);
+    getMyId();
+  }, []);
+
+  // 2. 데이터 로드 함수
+  const loadData = async () => {
+    if (!matchId) return; // ID가 없으면 실행 안 함
+    try {
+      const data = await getChatDetail(matchId);
+      setMessages(data);
+      await markMessagesAsRead(matchId);
+    } catch (error) {
+      console.error('메시지 로드 실패:', error);
+    }
   };
 
-  const handleBlockUser = () => {
-      setIsBlocked(true);
-      alert(`${currentChat.interlocutorName}님을 차단했습니다.`);
+  // 3. 초기 로드
+  useEffect(() => {
+    if (matchId) loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [matchId]);
+
+  // 4. 스크롤 자동 이동
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // 5. 메시지 전송 핸들러
+  const handleSendMessage = async (inputContent) => {
+    if (!inputContent || !inputContent.trim()) return;
+    try {
+      await sendMessage(matchId, inputContent);
+      await loadData(); // 전송 후 목록 갱신
+    } catch (error) {
+      alert("전송 실패");
+      console.error(error);
+    }
   };
 
-  if (!currentChat) {
+  // 6. 차단 핸들러
+  const handleBlockUser = async () => {
+      if(window.confirm("정말로 차단하시겠습니까?")) {
+        try {
+            await blockUser(matchId);
+            setIsBlocked(true);
+            alert("차단되었습니다.");
+        } catch(err) {
+            alert("차단 실패");
+        }
+      }
+  };
+
+  // UI용 데이터 매핑
+  const partnerMsg = messages.find(m => m.sender_id !== myUserId);
+  const currentChat = {
+    interlocutorName: partnerMsg ? `상대방` : "매칭 상대", 
+  };
+
+  // matchId가 없으면 에러 메시지 표시
+  if (!matchId) {
       return (
-          <div className="chat-screen p-8 text-center text-red-500">
-              <p className="text-xl font-bold">오류: 채팅방을 찾을 수 없습니다 (ID: {chatId})</p>
-              <button onClick={() => window.history.back()} className="mt-4 p-2 bg-gray-200 rounded-md">뒤로 가기</button>
-          </div>
+        <div style={{ padding: 20, textAlign: 'center' }}>
+          <h3>잘못된 접근입니다.</h3>
+          <p>URL에 매칭 ID가 없습니다.</p>
+          <button onClick={() => navigate(-1)}>뒤로 가기</button>
+        </div>
       );
   }
 
   return (
     <div className="chat-screen">
-      <ChatHeader interlocutorName={currentChat.interlocutorName} infoText={currentChat.infoText} onBlockUser={handleBlockUser} />
+      <ChatHeader 
+        interlocutorName={currentChat.interlocutorName} 
+        infoText={currentChat.infoText} 
+        onBlockUser={handleBlockUser} 
+      />
 
       <div className="messages-container">
-        {messages.map(message => (
-          <ChatBubble key={message.id} message={message.text} time={message.time} isMine={message.isMine}senderName={message.sender} />
+        {messages.map(msg => (
+          <ChatBubble 
+            key={msg.message_id} 
+            message={msg.content} 
+            time={new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} 
+            isMine={msg.sender_id === myUserId}
+            senderName={msg.sender_id === myUserId ? "나" : currentChat.interlocutorName} 
+          />
         ))}
-              
         <div ref={messagesEndRef} /> 
       </div>
 

@@ -43,7 +43,7 @@ function App() {
         <Route path="/mypage-user" element={<MypageUser />} />
         <Route path="/target" element={<TargetPage />} />
         <Route path="/Message" element={<MessageList />} />
-        <Route path="/Message/:chatId" element={<ChatPage />} />
+        <Route path="/Message/:matchId" element={<ChatPage />} />
         <Route path="/exchange" element={<TalentExchange />} />
         <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
       </Routes>
