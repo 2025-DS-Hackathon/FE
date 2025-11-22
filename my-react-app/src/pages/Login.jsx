@@ -4,6 +4,8 @@ import SocialButton from "../components/SocialButton";
 import { kakaoLogin } from "../services/socialAuth";
 import styles from "../styles/Login.module.css";
 
+
+
 export default function Login() {
   const [agreements, setAgreements] = useState({
     personal: false,
@@ -14,6 +16,10 @@ export default function Login() {
 
   const handleLogin = async () => {
     const userData = await kakaoLogin();
+     if (userData.access_token) {
+      localStorage.setItem("token", userData.access_token);
+      console.log("🟢 토큰 저장 완료:", userData.access_token);
+    }
     const birthYear = Number(userData.birthyear);
     const age = new Date().getFullYear() - birthYear + 1;
 
@@ -23,7 +29,7 @@ export default function Login() {
 
     await fetch("/api/user/save", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", Authorization:'Bearer ${token}', },
       body: JSON.stringify({
         nickname: userData.nickname,
         birthyear: birthYear,
@@ -33,7 +39,7 @@ export default function Login() {
     });
 
     window.location.href = "/main";
-  };
+  };  
 
   return (
     <div className={styles.loginContainer}>
