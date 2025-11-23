@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; 
-import TargetPage from './pages/talent.js'; 
+import TargetPage from './pages/Talent.js'; 
 import Login from "./pages/Login.jsx";
 import Main from "./pages/Main.jsx";
 import ExtraInfo from "./pages/ExtraInfo.jsx";
